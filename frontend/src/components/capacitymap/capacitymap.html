@@ -1,0 +1,17 @@
+<section class="capacitymap">
+  <v-card style="width: 100%;">
+    <v-card-title primary-title class="primary py-3 mb-5 white--text">
+      <v-icon small color="white" left>fas fa-server</v-icon>
+      Capacity map
+    </v-card-title>
+    <v-card-text>
+      <v-layout column align-content-space-between>
+        <geo-chart
+          :colors="[$vuetify.theme.currentTheme.secondary]"
+          :data="nodeLocation"
+        >
+        </geo-chart>
+      </v-layout>
+    </v-card-text>
+  </v-card>
+</section>
