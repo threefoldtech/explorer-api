@@ -8,9 +8,9 @@ const GRIDS = ['grid2', 'grid3'];
 const NETWORKS = ['devnet', 'testnet', 'mainnet'];
 
 export enum Urls {
-  'grid2.mainnet' = 'https://explorer.grid.tf/',
-  'grid2.testnet' = 'https://explorer.testnet.grid.tf/',
-  'grid2.devnet' = 'https://explorer.devnet.grid.tf/',
+  'grid2.mainnet' = 'https://explorer.grid.tf/explorer/',
+  'grid2.testnet' = 'https://explorer.testnet.grid.tf/explorer/',
+  'grid2.devnet' = 'https://explorer.devnet.grid.tf/explorer/',
 
   'grid3.mainnet' = 'https://gridproxy.grid.tf/',
   'grid3.testnet' = 'https://gridproxy.test.grid.tf/',
