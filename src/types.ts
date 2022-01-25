@@ -17,8 +17,8 @@ export enum Urls {
   // 'grid2.devnet.prices' = 'https://explorer.devnet.grid.tf/api/v1/prices',
 
   'grid3.mainnet' = 'https://gridproxy.grid.tf',
-  'grid3.testnet' = 'https://gridproxy.test.grid.tf',
-  'grid3.devnet' = 'https://gridproxy.dev.grid.tf',
+  'grid3.testnet' = 'https://gridproxy.ayoub.gridtesting.xyz',
+  'grid3.devnet' = 'https://gridproxy.ayoub.gridtesting.xyz',
 }
 
 export interface IUrlDetails {
@@ -94,6 +94,7 @@ export class MapToV2 {
       managed_domains: node.publicConfig ? [node.publicConfig.domain] : [],
       free_to_use: node.status === 'up' && MapToV2.checkFreeToUse(node),
       url: node.url,
+      ...node,
     };
   }
 

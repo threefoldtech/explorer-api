@@ -70,7 +70,7 @@ export default ({
     getPrices: (context, { grid, network }) => {
       tfService.getPrices(grid, network).then(response => {
         const data = response.data[0]
-        let s = data ? data.data : {}
+        let s = data || {}
         context.commit('setPrices', s)
       })
     },

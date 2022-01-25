@@ -40,17 +40,9 @@ export default {
     ...mapGetters(['gateways']),
     // Parse gatewayList to table format here
     parsedGateways: function () {
-      const gateways = this.gateways.filter(gateway => this.showGateway(gateway)).map(gateway => {
-        let networkType = ''
-        if (gateway.url.includes('test')) {
-          networkType = 'Testnet'
-        } else if (gateway.url.includes('dev')) {
-          networkType = 'Devnet'
-        } else {
-          networkType = 'Mainnet'
-        }
-        const gridVersion = Object.keys(gateway.workloads).length > 0 ? 'Grid2' : 'Grid3'
+      console.log('before filter gateways', this.gateways)
 
+      const gateways = this.gateways.filter(gateway => this.showGateway(gateway)).map(gateway => {
         return {
           uptime: moment.duration(gateway.uptime, 'seconds').format(),
           version: gateway.os_version,
@@ -66,10 +58,11 @@ export default {
           tcpRouterPort: gateway.tcp_router_port,
           dnsNameServer: gateway.dns_nameserver,
           publicKeyHex: gateway.public_key_hex,
-          networkType,
-          gridVersion
+          networkType: gateway.network,
+          gridVersion: gateway.grid
         }
       })
+      console.log('gateways', gateways)
       return gateways
     }
   },

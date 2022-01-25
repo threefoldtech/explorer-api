@@ -31,6 +31,42 @@ export class AppController {
     );
   }
 
+  @Get('/gateways')
+  public getGateways(@Param() params: IParams) {
+    const urls = IParams.getUrls(params, '/explorer/gateways', '/gateways');
+
+    return this.explorer.fetchAll(urls).pipe(
+      map((results) => {
+        return results.reduce((response, { grid, network, status, data }) => {
+          if (status === 'down') return response;
+          data.forEach((n) =>
+            response.push(MapToV2.toV2({ grid, network }, n)),
+          );
+          return response;
+        }, [] as any[]);
+      }),
+    );
+  }
+
+  @Get('/prices')
+  public getPrices(@Param() params: IParams) {
+    const urls = IParams.getUrls(params, '/api/v1/prices');
+    return this.explorer.fetchAll(urls).pipe(
+      map((results) => {
+        return results.reduce((response, { grid, network, data }) => {
+          console.log('prices_data', data);
+          response.push({ grid, network, ...data });
+          return response;
+        }, [] as any[]);
+      }),
+    );
+  }
+
+  @Get('/stats')
+  public getstats(@Param() params: IParams){
+
+  }
+
   // @Get('/:grid/:network/:type')
   // public resolver(
   //   @Param() params: IParams,
