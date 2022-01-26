@@ -9,7 +9,6 @@ import { ExplorerService } from './explorer.service';
 @Module({
   imports: [
     HttpModule.register({
-      baseURL: 'https://jsonplaceholder.typicode.com',
       adapter: setupCache({
         maxAge: 15 * 60 * 1000, // 15 mins
       }).adapter,
