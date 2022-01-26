@@ -69,9 +69,25 @@ export default ({
     },
     getPrices: (context, { grid, network }) => {
       tfService.getPrices(grid, network).then(response => {
-        const data = response.data[0]
-        let s = data || {}
-        context.commit('setPrices', s)
+        const data = response.data.filter(p => Object.keys(p).length > 2)
+        let CuPriceDollarMonth = 0
+        let SuPriceDollarMonth = 0
+        let TftPrice = 0
+        let IP4uPriceDollarMonth = 0
+
+        data.forEach(p => {
+          CuPriceDollarMonth += p.CuPriceDollarMonth
+          SuPriceDollarMonth += p.SuPriceDollarMonth
+          TftPrice += p.TftPrice
+          IP4uPriceDollarMonth += p.IP4uPriceDollarMonth
+        })
+
+        context.commit('setPrices', {
+          CuPriceDollarMonth: CuPriceDollarMonth / data.length,
+          SuPriceDollarMonth: SuPriceDollarMonth / data.length,
+          TftPrice: TftPrice / data.length,
+          IP4uPriceDollarMonth: IP4uPriceDollarMonth / data.length
+        })
       })
     },
     resetState: context => {
