@@ -38,12 +38,20 @@ export class MapToV2 {
     };
   }
 
-  public static toV2({ grid, network }: IParams, node) {
+  private static _toV2({ grid, network }: IParams, node) {
     return {
       grid,
       network,
       ...(grid === 'grid2' ? node : MapToV2.map(node)),
     };
+  }
+
+  public static toV2(results: any[]) {
+    return results.reduce((response, { grid, network, status, data }) => {
+      if (status === 'down') return response;
+      data.forEach((n) => response.push(MapToV2._toV2({ grid, network }, n)));
+      return response;
+    }, [] as any[]);
   }
 }
 

@@ -18,35 +18,13 @@ export class AppController {
   @Get('/nodes')
   public getNodes(@Param() params: IParams) {
     const urls = IParams.getUrls(params, '/explorer/nodes', '/nodes');
-
-    return this.explorer.fetchAll(urls).pipe(
-      map((results) => {
-        return results.reduce((response, { grid, network, status, data }) => {
-          if (status === 'down') return response;
-          data.forEach((n) =>
-            response.push(MapToV2.toV2({ grid, network }, n)),
-          );
-          return response;
-        }, [] as any[]);
-      }),
-    );
+    return this.explorer.fetchAll(urls).pipe(map(MapToV2.toV2));
   }
 
   @Get('/gateways')
   public getGateways(@Param() params: IParams) {
     const urls = IParams.getUrls(params, '/explorer/gateways', '/gateways');
-
-    return this.explorer.fetchAll(urls).pipe(
-      map((results) => {
-        return results.reduce((response, { grid, network, status, data }) => {
-          if (status === 'down') return response;
-          data.forEach((n) =>
-            response.push(MapToV2.toV2({ grid, network }, n)),
-          );
-          return response;
-        }, [] as any[]);
-      }),
-    );
+    return this.explorer.fetchAll(urls).pipe(map(MapToV2.toV2));
   }
 
   @Get('/prices')

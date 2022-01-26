@@ -24,9 +24,6 @@ export interface IUrlDetails {
 }
 
 export class IParams {
-  // @IsIn(['nodes', 'gateways', 'farms', 'stats', 'prices'])
-  // type: TypeTypes;
-
   @IsIn(['all', 'grid2', 'grid3'])
   grid: GridTypes;
 
@@ -48,7 +45,8 @@ export class IParams {
           network,
           url:
             Urls[`${grid}.${network}`] +
-            (grid === 'grid2' ? grid2Suffix : grid3Suffix),
+            (grid === 'grid2' ? grid2Suffix : grid3Suffix) +
+            `?page=1&size=${Number.MAX_SAFE_INTEGER}`,
         });
       }
       return urls;
