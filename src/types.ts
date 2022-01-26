@@ -46,7 +46,7 @@ export class IParams {
           url:
             Urls[`${grid}.${network}`] +
             (grid === 'grid2' ? grid2Suffix : grid3Suffix) +
-            `?page=1&size=${Number.MAX_SAFE_INTEGER}`,
+            `?page=1&size=${1e9 - 1}`,
         });
       }
       return urls;
