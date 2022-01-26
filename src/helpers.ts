@@ -1,4 +1,4 @@
-import { sumBy, uniqBy } from 'lodash';
+import { uniqBy } from 'lodash';
 import { IParams } from './types';
 export class MapToV2 {
   private static checkFreeToUse(node) {
@@ -47,17 +47,28 @@ export class MapToV2 {
   }
 }
 
-export function computeNodeStats(nodes) {
+export function computeNodeStats(nodes: any[]) {
   const onlineNodes = nodes.filter(online);
+  let cru = 0;
+  let sru = 0;
+  let mru = 0;
+  let hru = 0;
+  nodes.forEach((node) => {
+    if (!node.total_resources) return;
+    cru += node.total_resources.cru;
+    sru += node.total_resources.sru;
+    mru += node.total_resources.mru;
+    hru += node.total_resources.hru;
+  });
 
   return {
     amountregisteredNodes: nodes.length,
     onlineNodes: onlineNodes.length,
     countries: uniqBy(nodes, (node) => node.location.country).length,
-    cru: sumBy(onlineNodes, (node) => +node.total_resources?.cru ?? 0),
-    mru: sumBy(onlineNodes, (node) => +node.total_resources?.mru ?? 0),
-    sru: sumBy(onlineNodes, (node) => +node.total_resources?.sru ?? 0),
-    hru: sumBy(onlineNodes, (node) => +node.total_resources?.hru ?? 0),
+    cru,
+    sru,
+    mru,
+    hru,
   };
 }
 function online(node) {

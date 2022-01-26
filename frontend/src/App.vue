@@ -73,7 +73,7 @@ export default {
     refreshInterval: undefined,
     select: { text: 'testnet' },
     grid: { text: 'grid2' },
-    gridVersions: [{ text: 'grid3' }, { text: 'grid2' }],
+    gridVersions: [{ text: 'all' }, { text: 'grid3' }, { text: 'grid2' }],
     items: [{ text: 'all' }, { text: 'testnet' }, { text: 'devnet' }]
   }),
   computed: {

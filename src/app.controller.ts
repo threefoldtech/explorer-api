@@ -55,7 +55,6 @@ export class AppController {
     return this.explorer.fetchAll(urls).pipe(
       map((results) => {
         return results.reduce((response, { grid, network, data }) => {
-          console.log('prices_data', data);
           response.push({ grid, network, ...data });
           return response;
         }, [] as any[]);
@@ -66,25 +65,26 @@ export class AppController {
   @Get('/stats')
   public getstats(@Param() params: IParams) {
     return this.getNodes(params).pipe(map(computeNodeStats));
-    // const urls = IParams.getUrls(params, '/api/v1/prices');
-    // return this.explorer.fetchAll(urls).pipe(
-    //   map((results) => {
-    //     return results.reduce((response, { grid, network, data }) => {
-    //       console.log('prices_data', data);
-    //       response.push({ grid, network, ...data });
-    //       return response;
-    //     }, [] as any[]);
-    //   }),
-    // );
   }
 
-  // @Get('/:grid/:network/:type')
-  // public resolver(
-  //   @Param() params: IParams,
-  //   @Query('flat') flatten: 'false',
-  // ): any {
-  //   const urls = IParams.getUrls(params);
-  //   const flat = flatten !== 'false' && params.type !== 'prices';
-  //   return this.explorerService.fetchAll(urls, flat);
-  // }
+  @Get('/farms')
+  public getFarms(@Param() params: IParams) {
+    const urls = IParams.getUrls(params, '/explorer/farms', '/farms');
+    return this.explorer.fetchAll(urls).pipe(
+      map((results) => {
+        return results.reduce((response, { data, status, grid, network }) => {
+          if (status === 'up') {
+            for (const farm of data) {
+              response.push({
+                ...farm,
+                grid,
+                network,
+              });
+            }
+          }
+          return response;
+        }, [] as any[]);
+      }),
+    );
+  }
 }

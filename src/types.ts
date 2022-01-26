@@ -12,11 +12,7 @@ export enum Urls {
   'grid2.testnet' = 'https://explorer.testnet.grid.tf',
   'grid2.devnet' = 'https://explorer.devnet.grid.tf',
 
-  // 'grid2.mainnet.prices' = 'https://explorer.grid.tf/api/v1/prices',
-  // 'grid2.testnet.prices' = 'https://explorer.testnet.grid.tf/api/v1/prices',
-  // 'grid2.devnet.prices' = 'https://explorer.devnet.grid.tf/api/v1/prices',
-
-  'grid3.mainnet' = 'https://gridproxy.grid.tf',
+  'grid3.mainnet' = 'https://gridproxy.ayoub.gridtesting.xyz',
   'grid3.testnet' = 'https://gridproxy.ayoub.gridtesting.xyz',
   'grid3.devnet' = 'https://gridproxy.ayoub.gridtesting.xyz',
 }
