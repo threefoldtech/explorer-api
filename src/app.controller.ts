@@ -63,8 +63,17 @@ export class AppController {
   }
 
   @Get('/stats')
-  public getstats(@Param() params: IParams){
-
+  public getstats(@Param() params: IParams) {
+    const urls = IParams.getUrls(params, '/api/v1/prices');
+    return this.explorer.fetchAll(urls).pipe(
+      map((results) => {
+        return results.reduce((response, { grid, network, data }) => {
+          console.log('prices_data', data);
+          response.push({ grid, network, ...data });
+          return response;
+        }, [] as any[]);
+      }),
+    );
   }
 
   // @Get('/:grid/:network/:type')
