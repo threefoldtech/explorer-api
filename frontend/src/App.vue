@@ -48,7 +48,7 @@
             <v-icon big color='primary' left> fas fa-sync-alt </v-icon>
           </v-btn>
         </v-row>
-        <router-view :grid="grid.text"></router-view>
+        <router-view :network="select.text"  :grid="grid.text"></router-view>
       </v-col>
     </v-content>
   </v-app>
