@@ -131,7 +131,6 @@ export default ({
       state.user = user
     },
     setPrices: (state, prices) => {
-      console.log({ prices })
       state.prices.CuPriceDollarMonth = `$ ${prices.CuPriceDollarMonth}`
       state.prices.SuPriceDollarMonth = `$ ${prices.SuPriceDollarMonth}`
       state.prices.TftPrice = `$ ${prices.TftPriceMill / 1000}`

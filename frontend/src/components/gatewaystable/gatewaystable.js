@@ -40,8 +40,6 @@ export default {
     ...mapGetters(['gateways']),
     // Parse gatewayList to table format here
     parsedGateways: function () {
-      console.log('before filter gateways', this.gateways)
-
       const gateways = this.gateways.filter(gateway => this.showGateway(gateway)).map(gateway => {
         return {
           uptime: moment.duration(gateway.uptime, 'seconds').format(),
@@ -62,7 +60,6 @@ export default {
           gridVersion: gateway.grid
         }
       })
-      console.log('gateways', gateways)
       return gateways
     }
   },

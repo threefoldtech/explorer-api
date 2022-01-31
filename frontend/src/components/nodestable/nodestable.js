@@ -45,9 +45,6 @@ export default {
         const farm = find(this.registeredFarms, farmer => {
           return farmer.id === node.farm_id
         })
-
-        console.log({ farm })
-
         return {
           uptime: moment.duration(node.uptime, 'seconds').format(),
           version: node.os_version,
