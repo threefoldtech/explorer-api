@@ -63,10 +63,17 @@ export function computeNodeStats(nodes: any[]) {
   let hru = 0;
   nodes.forEach((node) => {
     if (!node.total_resources) return;
-    cru += node.total_resources.cru;
-    sru += node.total_resources.sru;
-    mru += node.total_resources.mru;
-    hru += node.total_resources.hru;
+    if (node.grid == 'grid3') {
+      cru += node.total_resources.cru / (1024 ^ 3);
+      sru += node.total_resources.sru / (1024 ^ 3);
+      mru += node.total_resources.mru / (1024 ^ 3);
+      hru += node.total_resources.hru / (1024 ^ 3);
+    } else {
+      cru += node.total_resources.cru;
+      sru += node.total_resources.sru;
+      mru += node.total_resources.mru;
+      hru += node.total_resources.hru;
+    }
   });
 
   return {
