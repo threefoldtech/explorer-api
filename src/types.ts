@@ -12,9 +12,9 @@ export enum Urls {
   'grid2.testnet' = 'https://explorer.testnet.grid.tf',
   'grid2.devnet' = 'https://explorer.devnet.grid.tf',
 
-  'grid3.mainnet' = 'https://gridproxy.ayoub.gridtesting.xyz',
-  'grid3.testnet' = 'https://gridproxy.ayoub.gridtesting.xyz',
-  'grid3.devnet' = 'https://gridproxy.ayoub.gridtesting.xyz',
+  'grid3.mainnet' = 'https://gridproxy.grid.tf',
+  'grid3.testnet' = 'https://gridproxy.test.grid.tf',
+  'grid3.devnet' = 'https://gridproxy.dev.grid.tf',
 }
 
 export interface IUrlDetails {

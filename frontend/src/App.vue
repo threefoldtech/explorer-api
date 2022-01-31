@@ -72,7 +72,7 @@ export default {
     start: undefined,
     refreshInterval: undefined,
     select: { text: 'testnet' },
-    grid: { text: 'grid2' },
+    grid: { text: 'grid3' },
     gridVersions: [{ text: 'all' }, { text: 'grid3' }, { text: 'grid2' }],
     items: [{ text: 'all' }, { text: 'testnet' }, { text: 'devnet' }]
   }),
