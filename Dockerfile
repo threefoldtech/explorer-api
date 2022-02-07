@@ -4,11 +4,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update && apt install git curl -y
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash 
 
-ENV NVM_DIR "$HOME/.nvm"
-RUN [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && \
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" && \ 
-    source ~/.bashrc && nvm install --lts
-
+SHELL ["/bin/bash", "-c"]
+RUN curl -sL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh && bash nodesource_setup.sh && apt install nodejs -y
 
 RUN npm install -g yarn 
 
@@ -19,9 +16,10 @@ RUN yarn && yarn build
 WORKDIR /app/frontend
 RUN yarn && yarn build
 WORKDIR /app/dist
-EXPOSE 8081
+ENV PORT 8081
+EXPOSE 8081 
 
-CMD ["PORT=8081", "node", "main.js" ]
+CMD ["node", "main.js" ]
 
 
 
