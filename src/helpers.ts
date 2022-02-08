@@ -65,9 +65,9 @@ export function computeNodeStats(nodes: any[]) {
     if (!node.total_resources) return;
     if (node.grid == 'grid3') {
       cru += node.total_resources.cru;
-      sru += node.total_resources.sru / (1024 ^ 3);
-      mru += node.total_resources.mru / (1024 ^ 3);
-      hru += node.total_resources.hru / (1024 ^ 3);
+      sru += node.total_resources.sru / Math.pow(1024, 3);
+      mru += node.total_resources.mru / Math.pow(1024, 3);
+      hru += node.total_resources.hru / Math.pow(1024, 3);
     } else {
       cru += node.total_resources.cru;
       sru += node.total_resources.sru;
@@ -81,9 +81,9 @@ export function computeNodeStats(nodes: any[]) {
     onlineNodes: onlineNodes.length,
     countries: uniqBy(nodes, (node) => node.location.country).length,
     cru,
-    sru,
-    mru,
-    hru,
+    sru: Math.round(sru),
+    mru: Math.round(mru),
+    hru: Math.round(hru),
   };
 }
 function online(node) {
