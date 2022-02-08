@@ -64,7 +64,7 @@ export function computeNodeStats(nodes: any[]) {
   nodes.forEach((node) => {
     if (!node.total_resources) return;
     if (node.grid == 'grid3') {
-      cru += node.total_resources.cru / (1024 ^ 3);
+      cru += node.total_resources.cru;
       sru += node.total_resources.sru / (1024 ^ 3);
       mru += node.total_resources.mru / (1024 ^ 3);
       hru += node.total_resources.hru / (1024 ^ 3);
