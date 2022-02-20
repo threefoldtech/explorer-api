@@ -8,7 +8,7 @@ import { IUrlDetails } from './types';
 export class ExplorerService {
   public constructor(private readonly httpService: HttpService) {}
 
-  private _data({ grid, network, url }: IUrlDetails, data: any) {
+  _data({ grid, network, url }: IUrlDetails, data: any) {
     return {
       grid,
       network,
@@ -24,6 +24,8 @@ export class ExplorerService {
       catchError(() => of(this._data(params, null))),
     );
   }
+
+  public fetchPerPage() {}
 
   public fetchAll(urls: IUrlDetails[]) {
     return forkJoin(urls.map((url) => this._fetch(url)));
