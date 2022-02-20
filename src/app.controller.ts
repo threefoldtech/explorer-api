@@ -22,25 +22,8 @@ export class AppController {
 
   @Get('/nodes')
   public getNodes(@Param() params: IParams) {
-    const getUrl = (p: number) =>
-      `https://explorer.testnet.grid.tf/explorer/nodes?page=${p}`;
-    return this.httpService.get(getUrl(1)).pipe(
-      map(({ headers }) => +headers.pages),
-      map((length) => Array.from({ length }, (_, i) => i + 1)),
-      tap(console.log),
-      mergeMap((pages) => of(...pages)),
-      map(getUrl),
-      map((url) => this.httpService.get(url).pipe(map(({ data }) => data))),
-      toArray(),
-      tap(console.log),
-      mergeMap((x) => forkJoin(x)),
-      map((data) => data.flat(Infinity)),
-      mergeMap((data) => of(...data)),
-      map((d) => this.explorer._data({ url: '', ...params }, d)),
-      toArray(),
-    );
-    // const urls = IParams.getUrls(params, '/explorer/nodes', '/nodes');
-    // return this.explorer.fetchAll(urls).pipe(map(MapToV2.toV2));
+    const urls = IParams.getUrls(params, '/explorer/nodes', '/nodes');
+    return this.explorer.fetchAll(urls).pipe(map(MapToV2.toV2));
   }
 
   @Get('/gateways')
@@ -53,7 +36,7 @@ export class AppController {
   public getPrices(@Param() params: IParams) {
     const urls = IParams.getUrls(params, '/api/v1/prices');
     return this.explorer.fetchAll(urls).pipe(
-      map((results) => {
+      map((results: any) => {
         return results.reduce((response, { grid, network, data }) => {
           response.push({ grid, network, ...data });
           return response;
@@ -71,7 +54,7 @@ export class AppController {
   public getFarms(@Param() params: IParams) {
     const urls = IParams.getUrls(params, '/explorer/farms', '/farms');
     return this.explorer.fetchAll(urls).pipe(
-      map((results) => {
+      map((results: any) => {
         return results.reduce((response, { data, status, grid, network }) => {
           if (status === 'up') {
             for (const farm of data) {
