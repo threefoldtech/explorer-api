@@ -48,7 +48,8 @@ export class MapToV2 {
 
   public static toV2(results: any[]) {
     return results.reduce((response, { grid, network, status, data }) => {
-      if (status === 'down' && !data) return response;
+      if (status === 'down' || !data) return response;
+      console.log('data', data);
       data.forEach((n) => response.push(MapToV2._toV2({ grid, network }, n)));
       return response;
     }, [] as any[]);
