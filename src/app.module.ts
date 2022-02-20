@@ -1,18 +1,25 @@
-import { HttpModule } from '@nestjs/axios';
-import { Module } from '@nestjs/common';
+import {
+  Module,
+  CacheModule,
+  OnModuleInit,
+  CACHE_MANAGER,
+  Inject,
+} from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { setupCache } from 'axios-cache-adapter';
+
+import { HttpModule, HttpService } from '@nestjs/axios';
+import { Cache } from 'cache-manager';
 import { join } from 'path';
+
 import { AppController } from './app.controller';
 import { ExplorerService } from './explorer.service';
 
 @Module({
   imports: [
-    HttpModule.register({
-      adapter: setupCache({
-        maxAge: 15 * 60 * 1000, // 15 mins
-      }).adapter,
+    CacheModule.register({
+      ttl: 15 * 60,
     }),
+    HttpModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),
     }),
@@ -20,4 +27,15 @@ import { ExplorerService } from './explorer.service';
   controllers: [AppController],
   providers: [ExplorerService],
 })
-export class AppModule {}
+export class AppModule implements OnModuleInit {
+  constructor(
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+    private readonly httpService: HttpService,
+  ) {}
+
+  onModuleInit() {
+    // this.httpService
+    //   .get('https://explorer.testnet.grid.tf/explorer/nodes')
+    //   .subscribe(({ data }) => console.log(data));
+  }
+}
