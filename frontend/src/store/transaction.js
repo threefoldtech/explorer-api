@@ -147,8 +147,8 @@ export default ({
         return
       }
       var onlineGateways = gateways.filter(online)
-      state.gatewaySpecs.amountRegisteredGateways += gateways.length
-      state.gatewaySpecs.onlineGateways += onlineGateways.length
+      state.gatewaySpecs.amountRegisteredGateways = gateways.length
+      state.gatewaySpecs.onlineGateways = onlineGateways.length
     },
     resetState (state) {
       // Merge rather than replace so we don't lose observers

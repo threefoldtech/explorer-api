@@ -61,7 +61,7 @@ export function computeNodeStats(nodes: any[]) {
   let sru = 0;
   let mru = 0;
   let hru = 0;
-  nodes.forEach((node) => {
+  onlineNodes.forEach((node) => {
     if (!node.total_resources) return;
     if (node.grid == 'grid3') {
       cru += node.total_resources.cru;

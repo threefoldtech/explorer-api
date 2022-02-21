@@ -74,7 +74,7 @@ export default {
     select: { text: 'testnet' },
     grid: { text: 'grid3' },
     gridVersions: [{ text: 'all' }, { text: 'grid3' }, { text: 'grid2' }],
-    items: [{ text: 'all' }, { text: 'testnet' }, { text: 'devnet' }]
+    items: [{ text: 'all' }, { text: 'testnet' }, { text: 'devnet' }, { text: 'mainnet' }]
   }),
   computed: {
     routes () {
@@ -93,7 +93,7 @@ export default {
     onUpdateGrid () {
       const gridType = this.grid.text
       if (gridType === 'grid3') {
-        this.items = [{ text: 'all' }, { text: 'testnet' }, { text: 'devnet' }]
+        this.items = [{ text: 'all' }, { text: 'testnet' }, { text: 'devnet' }, { text: 'mainnet' }]
       } else if (gridType === 'grid2') {
         this.items = [
           { text: 'all' },
