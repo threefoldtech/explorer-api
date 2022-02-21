@@ -39,67 +39,43 @@ export class AppModule implements OnModuleInit {
 
   private __fetchGrid2Data() {
     for (const item of ['nodes', 'farms', 'gateways']) {
-      // Devnet
-      this.cacheManager.set(`grid2_devnet_${item}`, {
-        grid: 'grid2',
-        network: 'devnet',
-        url: `https://explorer.devnet.grid.tf/explorer/${item}`,
-        status: 'down',
-        data: [],
-      });
-
       // Testnet
       const testNodesUrl = IParams.getUrls({ grid: 'grid2', network: 'testnet' }, `/explorer/${item}`); // prettier-ignore
-      this.explorerService
-        .fetchAll(testNodesUrl)
-        .pipe(map((x) => (item == 'node' ? MapToV2.toV2(x) : x)))
-        .subscribe((data) => {
-          // console.log({ [`grid2_testnet_${item} `]: data });
-          this.cacheManager.set(`grid2_testnet_${item}`, data);
-        });
+      this.explorerService.fetchAll(testNodesUrl).subscribe(([data]) => {
+        this.cacheManager.set(`grid2_testnet_${item}`, data);
+      });
 
       // mainnet
       const mainNodesUrl = IParams.getUrls({ grid: 'grid2', network: 'mainnet' }, `/explorer/${item}`); // prettier-ignore
-      this.explorerService
-        .fetchAll(mainNodesUrl)
-        // .pipe(map((x) => (item == 'node' ? MapToV2.toV2(x) : x)))
-        .subscribe(([data]) => {
-          this.cacheManager.set(`grid2_mainnet_${item}`, data);
-        });
+      this.explorerService.fetchAll(mainNodesUrl).subscribe(([data]) => {
+        this.cacheManager.set(`grid2_mainnet_${item}`, data);
+      });
     }
   }
   private __fetchGrid3Data() {
     for (const item of ['nodes', 'farms', 'gateways']) {
       // Devnet
-      const devNodesUrl = IParams.getUrls({ grid: 'grid3', network: 'testnet' }, `/${item}`); // prettier-ignore
+      const devNodesUrl = IParams.getUrls({ grid: 'grid3', network: 'devnet' }, `/${item}`); // prettier-ignore
       this.explorerService.fetchAll(devNodesUrl).subscribe(([data]) => {
         this.cacheManager.set(`grid3_devnet_${item}`, data);
       });
 
       // Testnet
       const testNodesUrl = IParams.getUrls({ grid: 'grid3', network: 'testnet' }, `/${item}`); // prettier-ignore
-      this.explorerService
-        .fetchAll(testNodesUrl)
-        // .pipe(map((x) => (item == 'node' ? MapToV2.toV2(x) : x)))
-        .subscribe(([data]) => {
-          this.cacheManager.set(`grid3_testnet_${item}`, data);
-        });
+      this.explorerService.fetchAll(testNodesUrl).subscribe(([data]) => {
+        this.cacheManager.set(`grid3_testnet_${item}`, data);
+      });
 
       // mainnet
       const mainNodesUrl = IParams.getUrls({ grid: 'grid3', network: 'mainnet' }, `/${item}`); // prettier-ignore
-      this.explorerService
-        .fetchAll(mainNodesUrl)
-        // .pipe(map((x) => (item == 'node' ? MapToV2.toV2(x) : x)))
-        .subscribe(([data]) => {
-          this.cacheManager.set(`grid3_mainnet_${item}`, data);
-        });
+      this.explorerService.fetchAll(mainNodesUrl).subscribe(([data]) => {
+        this.cacheManager.set(`grid3_mainnet_${item}`, data);
+      });
     }
   }
 
   onModuleInit() {
     this.__fetchGrid2Data();
-    // console.log('grid2 is done');
     this.__fetchGrid3Data();
-    // console.log('grid3 is done');
   }
 }

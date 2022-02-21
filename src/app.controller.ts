@@ -18,38 +18,28 @@ import { Cache } from 'cache-manager';
 @Controller('/api/:grid/:network')
 @UsePipes(ValidationPipe)
 export class AppController {
-  public constructor(
-    @Inject(CACHE_MANAGER) private cacheManager: Cache,
-    private readonly explorer: ExplorerService,
-    private readonly httpService: HttpService,
-  ) {}
+  public constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
+
+  private __fetchAndFlat(promises: Array<Promise<any[]>>) {
+    return Promise.all(promises)
+      .then((x) => x.filter((a) => !!a))
+      .then((x) => x.flat(Infinity));
+  }
 
   @Get('/nodes')
   public getNodes(@Param() params: IParams) {
     const urls = IParams.getUrls(params);
-    // data = [];
-    // for (const url of urls) {
-    //   this.cacheManager
-    //     .get(`${url.grid}_${url.network}_nodes`)
-    //     .then(console.log);
-    // }
-    return Promise.all(
+    return this.__fetchAndFlat(
       urls.map((url) =>
         this.cacheManager.get(`${url.grid}_${url.network}_nodes`),
       ),
-    )
-      .then((res) => res.filter((x) => !!x))
-      .then(MapToV2.toV2);
-    //   .then((res) => res.map((x: any) => ('data' in x ? x['data'] : x)))
-    //   .then((data) => data.flat(Infinity));
-    // return this.explorer.fetchAll(urls).pipe(map(MapToV2.toV2));
-    // return this.cacheManager.get('grid2_testnet_nodes');
+    );
   }
 
   @Get('/gateways')
   public getGateways(@Param() params: IParams) {
     const urls = IParams.getUrls(params);
-    return Promise.all(
+    return this.__fetchAndFlat(
       urls.map((url) =>
         this.cacheManager.get(`${url.grid}_${url.network}_gateways`),
       ),
@@ -94,7 +84,7 @@ export class AppController {
     //   }),
     // );
     const urls = IParams.getUrls(params);
-    return Promise.all(
+    return this.__fetchAndFlat(
       urls.map((url) =>
         this.cacheManager.get(`${url.grid}_${url.network}_farms`),
       ),
