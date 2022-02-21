@@ -12,7 +12,7 @@ export class MapToV2 {
     );
   }
 
-  private static map(node) {
+  static map(node) {
     return {
       id: node.id,
       node_id: node.nodeId,
