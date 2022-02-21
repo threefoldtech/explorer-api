@@ -6,8 +6,8 @@ import {
   Inject,
 } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { map } from 'rxjs/operators';
-
+import { startWith } from 'rxjs/operators';
+import { timer } from 'rxjs';
 import { HttpModule, HttpService } from '@nestjs/axios';
 import { Cache } from 'cache-manager';
 import { join } from 'path';
@@ -75,7 +75,11 @@ export class AppModule implements OnModuleInit {
   }
 
   onModuleInit() {
-    this.__fetchGrid2Data();
-    this.__fetchGrid3Data();
+    timer(13 * 60 * 1000)
+      .pipe(startWith(0))
+      .subscribe(() => {
+        this.__fetchGrid2Data();
+        this.__fetchGrid3Data();
+      });
   }
 }
