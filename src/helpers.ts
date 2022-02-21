@@ -12,7 +12,7 @@ export class MapToV2 {
     );
   }
 
-  private static map(node) {
+  static map(node) {
     return {
       id: node.id,
       node_id: node.nodeId,
@@ -48,7 +48,7 @@ export class MapToV2 {
 
   public static toV2(results: any[]) {
     return results.reduce((response, { grid, network, status, data }) => {
-      if (status === 'down' && !data) return response;
+      if (status === 'down' || !data) return response;
       data.forEach((n) => response.push(MapToV2._toV2({ grid, network }, n)));
       return response;
     }, [] as any[]);

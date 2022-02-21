@@ -32,7 +32,7 @@ export class IParams {
 
   public static getUrls(
     { grid, network }: IParams,
-    grid2Suffix: string,
+    grid2Suffix = '',
     grid3Suffix: string = grid2Suffix,
   ): IUrlDetails[] {
     const grids = grid === 'all' ? GRIDS : [grid];

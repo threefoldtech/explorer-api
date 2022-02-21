@@ -25,13 +25,11 @@ export class ExplorerService {
   private _fetchPages(params: IUrlDetails) {
     // Fetch data in case of pagination ex. nodes, farms, gateways
     const url = params.url;
-    // console.log('URL', url);
     return this.httpService.get(this._getUrl(url, '1')).pipe(
       map(({ headers }) => +headers.pages),
       map((length) => Array.from({ length }, (_, i) => i + 1)),
       mergeMap((pages) => of(...pages)),
       map((page) => this._getUrl(url, page.toString())),
-      // tap(console.log),
       map((url) => this.httpService.get(url).pipe(map(({ data }) => data))),
       toArray(),
       mergeMap((x) => forkJoin(x)),
