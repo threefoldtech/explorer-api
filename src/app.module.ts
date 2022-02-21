@@ -57,28 +57,19 @@ export class AppModule implements OnModuleInit {
       // Devnet
       const devNodesUrl = IParams.getUrls({ grid: 'grid3', network: 'devnet' }, `/${item}`); // prettier-ignore
       this.explorerService.fetchAll(devNodesUrl).subscribe(([data]) => {
-        this.cacheManager.set(
-          `grid3_devnet_${item}`,
-          item === 'farms' ? data : data.map(MapToV2.map),
-        );
+        this.cacheManager.set(`grid3_devnet_${item}`, data);
       });
 
       // Testnet
       const testNodesUrl = IParams.getUrls({ grid: 'grid3', network: 'testnet' }, `/${item}`); // prettier-ignore
       this.explorerService.fetchAll(testNodesUrl).subscribe(([data]) => {
-        this.cacheManager.set(
-          `grid3_testnet_${item}`,
-          item === 'farms' ? data : data.map(MapToV2.map),
-        );
+        this.cacheManager.set(`grid3_testnet_${item}`, data);
       });
 
       // mainnet
       const mainNodesUrl = IParams.getUrls({ grid: 'grid3', network: 'mainnet' }, `/${item}`); // prettier-ignore
       this.explorerService.fetchAll(mainNodesUrl).subscribe(([data]) => {
-        this.cacheManager.set(
-          `grid3_mainnet_${item}`,
-          item === 'farms' ? data : data.map(MapToV2.map),
-        );
+        this.cacheManager.set(`grid3_mainnet_${item}`, data);
       });
     }
   }

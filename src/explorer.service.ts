@@ -58,19 +58,20 @@ export class ExplorerService {
           return this._fetch(url);
         return this._fetchPages(url);
       }),
-    ).pipe(
-      mergeMap(from),
-      map((_data) => {
-        const { grid, network, data } = _data;
-        return data.map((obj) => {
-          return {
-            ...obj,
-            grid,
-            network,
-          };
-        });
-      }),
-      toArray(),
     );
+    // .pipe(
+    //   mergeMap(from),
+    //   map((_data) => {
+    //     const { grid, network, data } = _data;
+    //     return data.map((obj) => {
+    //       return {
+    //         ...obj,
+    //         grid,
+    //         network,
+    //       };
+    //     });
+    //   }),
+    //   toArray(),
+    // );
   }
 }
