@@ -18,7 +18,10 @@ import { Cache } from 'cache-manager';
 @Controller('/api/:grid/:network')
 @UsePipes(ValidationPipe)
 export class AppController {
-  public constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
+  public constructor(
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+    private explorer: ExplorerService,
+  ) {}
 
   private __fetchAndFlat(promises: Array<Promise<any[]>>) {
     return Promise.all(promises).then((x) => x.filter((a) => !!a));
@@ -45,18 +48,18 @@ export class AppController {
     ).then(MapToV2.toV2);
   }
 
-  // @Get('/prices')
-  // public getPrices(@Param() params: IParams) {
-  //   const urls = IParams.getUrls(params, '/api/v1/prices');
-  //   return this.explorer.fetchAll(urls).pipe(
-  //     map((results: any) => {
-  //       return results.reduce((response, { grid, network, data }) => {
-  //         response.push({ grid, network, ...data });
-  //         return response;
-  //       }, [] as any[]);
-  //     }),
-  //   );
-  // }
+  @Get('/prices')
+  public getPrices(@Param() params: IParams) {
+    const urls = IParams.getUrls(params, '/api/v1/prices');
+    return this.explorer.fetchAll(urls).pipe(
+      map((results: any) => {
+        return results.reduce((response, { grid, network, data }) => {
+          response.push({ grid, network, ...data });
+          return response;
+        }, [] as any[]);
+      }),
+    );
+  }
 
   @Get('/stats')
   public getstats(@Param() params: IParams) {
