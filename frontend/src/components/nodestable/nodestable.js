@@ -61,7 +61,8 @@ export default {
           location: node.location,
           freeToUse: node.free_to_use,
           networkType: node.network,
-          gridVersion: node.grid
+          gridVersion: node.grid,
+          zosVersion: node.zosVersion
         }
       })
       return parsedNodes
